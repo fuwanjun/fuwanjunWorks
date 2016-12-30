@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>左右轮播图</title>
+	<style>
+		*{margin: 0;padding: 0; }
+		li{list-style: none;}
+		.box{width:800px;  margin: 0 auto; position: relative; overflow: hidden;}
+		.box .slider{width:1000%; overflow: hidden;}
+		.box ul li{float: left;}
+		.box img{width: 800px;}
+		.prev,.next{position: absolute;color: #ffffff;background: rgba(0,0,0,0.5);padding: 20px 10px;
+			top:50%;margin-top: -29px; cursor: pointer;}
+		.next{right: 0px;}
+		.slider_list{position: absolute;bottom:20px;left:50%;margin-left: -35px;}
+		.slider_list li{width:8px; height: 8px; border-radius: 50%;background: #ffffff;margin-right: 10px;
+		float: left;}
+		.slider_list li.active{background: orangered;}
+
+	</style>
+</head>
+<body>
+	<div class="box">
+	<ul class="slider">
+		<li><img src="img/gao.jpg"></li>
+		<li><img src="img/d.jpg"> </li>
+		<li><img src="img/dog1.jpg"> </li>
+		<li><img src="img/design.jpg"> </li>
+	</ul>
+		<div class="prev">&lt;</div>
+		<div class="next">&gt;</div>
+		<ul class="slider_list">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	var w=800;
+	//自动轮播
+	var timer=setInterval(next, 2000);
+	$(".next" ).click(next);
+	$(".prev" ).click(prev);
+	var i=0;
+	$(".box" ).hover(
+		function(){
+			clearInterval(timer);
+		},function(){
+			timer=setInterval(next, 2000);
+		}
+	);
+	//向左滑动
+	function next(){
+		$(".slider" ).animate({
+			"margin-left":-w
+
+		},800,function(){
+			$(".slider li" ).eq(0 ).appendTo($(".slider"));
+			$(".slider" ).css("margin-left",0);
+		});
+		i++;
+		if(i>=$(".slider li" ).length){
+			i=0;
+		}
+		$(".slider_list li" ).removeClass("active");
+		$(".slider_list li" ).eq(i).addClass("active");
+		//控制按钮在800毫秒内不能重复点击
+		$(".next" ).unbind("click");
+		setTimeout(function(){
+			$(".next" ).click(next);
+		},800);
+	}
+
+	//向右滑动
+	function prev(){
+		$(".slider li" ).last().prependTo($(".slider"));
+		$(".slider" ).css("margin-left",-w);
+		$(".slider" ).animate({
+			"margin-left":0
+		},800);
+		i--;
+		if(i<0){
+		i=$(".slider_list li" ).length-1;
+		}
+		$(".slider_list li" ).removeClass("active");
+		$(".slider_list li" ).eq(i).addClass("active");
+		//控制按钮在800毫秒内不能重复点击
+		$(".prev" ).unbind("click");
+		setTimeout(function(){
+			$(".prev" ).click(prev);
+		},800);
+	}
+	$(".slider_list li" ).click(function(){
+		var j=$(this ).index()-i;
+		if(j>0){
+			i+=j;
+			$(".slider" ).animate({
+				"margin-left":-w*j
+			},800,function(){
+				for(var n= 0;n<j;n++){
+				$(".slider li" ).first().appendTo($(".slider"));
+					$(".slider" ).css("margin-left",0);
+
+				}
+				/*$(".slider_list li" ).removeClass("active");
+				$(".slider_list li" ).eq(i).addClass("active");*/
+			})
+		}
+		if(j<0){
+			for(var n=0;n>j;n--){
+			$(".slider li" ).last().prependTo(".slider");
+				i--;
+			}
+			$(".slider" ).css("margin-left",w*j);
+			$(".slider" ).animate({
+				"margin-left":0
+			},800);
+
+		}
+		$(".slider_list li" ).removeClass("active");
+		$(".slider_list li" ).eq(i).addClass("active");
+	})
+
+</script>
+</html>

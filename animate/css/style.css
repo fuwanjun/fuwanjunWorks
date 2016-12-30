@@ -1,0 +1,249 @@
+﻿body,figure,figcaption,h2,p,img{
+	padding: 0;
+	margin: 0;
+	font-family: "微软雅黑";
+	
+}
+figcaption p {
+	transition: all 0.35s;
+} 
+figure {
+	position: relative;
+	float: left;
+	width: 480px;
+	height: 360px;
+	overflow: hidden;
+	cursor: pointer;
+}
+figure img {
+	opacity: 0.8;
+	transition:all 0.35s;
+	width: 100%;
+	height: 100%;
+	width: calc(100% + 60px);
+	height: 360px;
+}
+figcaption {
+	position: absolute;
+	left: 30px;
+	top: 30px;
+	color: #fff;
+}
+
+
+.test1 p{
+	background: #fff;
+	color: #333;
+	padding: 5px 10px;
+	margin: 5px 0;
+	transform: translate(-180px,0);
+}
+.test1:hover p{
+	transform: translate(0,0);
+}
+.test1 p:fisrt-child{
+	transition-delay: 0.05s;
+}
+.test1 p:nth-of-type(2){
+	transition-delay: 0.1s;
+}
+.test1 p:nth-of-type(3){
+	transition-delay: 0.15s;
+}
+figure:hover img {
+	transform: translate(-50px,0);
+	opacity: 0.5;
+}
+/*第二张图*/
+.test2 figcaption{
+	width: 100%;
+	height: 100%;
+	padding: 30px;
+}
+.test2 figcaption::after{
+	width: 70%;
+	height: 70%;
+	content: "";
+	position: absolute;
+	top: 0;
+	left:4%;
+	border: 2px solid #fff;
+	transform: translate(0,-360px) rotate(0deg);
+	transition: all 0.35s
+}
+.test2 figcaption p{
+	margin-top: 10px;
+	transform: translate(0,50px);
+	opacity: 0;
+}
+.test2:hover figcaption::after{
+	transform: translate(0,0) rotate(360deg);
+}
+.test2:hover figcaption p{
+	transform: translate(0,0);
+	opacity: 1;
+}
+/*第三张图片效果*/
+.test3 figcaption {
+	top: 20%;
+	left: 20%;
+}
+.test3 h2 {
+	transform: skew(90deg);
+	-webkit-transform: skew(90deg);
+	transition: 0.35s;
+}
+.test3 p {
+	transform: skew(90deg);
+	-webkit-transform: skew(90deg);
+	margin-top: 10px;
+	
+}
+.test3:hover h2,.test3:hover p{
+	transform: skew(0deg);
+	transition-delay: 0.1s;
+}
+/*第四张*/
+.test4 figcaption{
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+.test4 h2 {
+	position: absolute;
+	top: 35%;
+	left: 35%;
+	transform: translate(0,-10px);
+	transition: all 0.35s;
+}
+.test4 p {
+	position: absolute;
+	top: 55%;
+	left: 26%;
+	transform: translate(0,10px);
+	transition: all 0.35s;
+	opacity: 0;
+}
+.test4:hover h2{
+	transform: translate(0,0);
+}
+.test4:hover p{
+	transform: translate(0,0);
+	opacity: 1;
+}
+.test4 figcaption::before{
+	content: "";
+	position: absolute;
+	top: 30px;
+	left:30px;
+	bottom: 30px;
+	right: 30px;
+	border-top: 2px solid #fff;
+	border-bottom: 2px solid #fff;
+	opacity: 0;
+	transition: all 0.35s;
+	transform: scale(0,1);
+}
+.test4 figcaption::after{
+	content: "";
+	position: absolute;
+	top: 30px;
+	left:30px;
+	bottom: 30px;
+	right: 30px;
+	border-left: 2px solid #fff;
+	border-right: 2px solid #fff;
+	opacity: 0;
+	transition: all 0.35s;
+	transform: scale(1,0);
+}
+.test4:hover figcaption::before {
+	opacity: 1;
+	/*transform: scale(1.05,1);*/
+	transform: scale(1);
+}
+.test4:hover figcaption::after {
+	opacity: 1;
+	/*transform: scale(1,1.05);*/
+	transform: scale(1);
+}
+
+/*第五张图片效果*/
+/*.test5 {
+	background: #ff0;
+}
+*/
+.test5 figcaption{
+	width: 100%;
+	height: 100%;
+}
+.test5 h2 {
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	transform: scale(1,1);
+}
+.test5 p {
+	position: absolute;
+	top: 30%;
+	left: 20%;
+	transform: scale(1,1);
+}
+.test5 figcaption::after{
+	width: 70%;
+	height: 70%;
+	content: "";
+	position: absolute;
+	top: 6%;
+	left:8%;
+	border: 2px solid #fff;
+	transform: scale(1.2,1.2);
+	opacity: 0;
+	transition: all 0.35s;
+}
+.test5:hover img{
+	transform: scale(1.2,1.2);
+	opacity: 1;
+}
+.test5:hover figcaption::after{
+	transform: scale(1,1);
+	opacity: 1;
+}
+.test5:hover h2,.test5:hover p{
+	transform: scale(1.2,1.2);
+}
+/*第六张图片效果*/
+.test6 figcaption{
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+.test6 h2 {
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	
+}
+
+.test6 figcaption::before{
+	width: 100%;
+	height: 100%;
+	content: "";
+	position: absolute;
+	top: 0;
+	left:0;
+	border: 2px solid #fff;
+	background: #fff;
+	opacity: 0.8;
+	
+	transform-origin: 0 100%;
+	transform: rotate3d(0,0,1,90deg);
+}
+.test6:hover figcaption::before {
+	transform: rotate3d(0,0,1,-420deg);
+
+}

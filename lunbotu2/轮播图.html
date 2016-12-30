@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style: none;
+        }
+        .box{
+            margin:20px auto;
+            width:800px;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+        .box img{
+            width:800px;
+            height:500px;
+        }
+        .banner{
+            width:1000%;
+        }
+        .banner li{
+            float: left;
+        }
+        .but{
+            position: absolute;
+            bottom:30px;
+            left:50%;
+            margin-left:-80px;
+        }
+        .but li{
+            width:12px;
+            height:12px;
+            border-radius: 50%;
+            background: #ffffff;
+            margin-right:20px;
+            float: left;
+        }
+        .but .active{
+            background: orangered;
+        }
+        .arrow{
+            position: absolute;
+            padding:20px 10px;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.5);
+            top:50%;
+        }
+        #next{
+            right:0px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <ul class="banner">
+        <li><img src="images/t01dfecaca5c62485b4.jpg"/></li>
+        <li><img src="images/t01e5c96f7839ae341b.jpg"/></li>
+        <li><img src="images/t01905bff8309d7af96.jpg"/></li>
+        <li><img src="images/t01933a34a966684d52.jpg"/></li>
+        <li><img src="images/t01a1ea82ce3594f000.jpg"/></li>
+    </ul>
+    <ul class="but">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div class="arrow" id="prev">&lt</div>
+    <div class="arrow" id="next">&gt</div>
+</div>
+</body>
+<script src="jquery-1.12.4.js"></script>
+<script>
+    var w=800;
+    var timer=setInterval(next,2000);
+    $("#next").click(next);
+    $("#prev").click(prev);
+    var i=0;
+    $(".box").hover(function(){
+        clearInterval(timer);
+    },function(){
+        timer=setInterval(next,2000);
+    });
+    //向左滑动
+    function next(){
+        $(".banner").animate({
+            "margin-left":-w
+        },800,function(){
+            $(".banner li").eq(0).appendTo($(".banner"));
+            $(".banner").css("margin-left",0)
+        });
+        i++;
+        if(i>$(".banner li").length-1){
+            i=0
+        }
+        $(".but li").removeClass("active");
+        $(".but li").eq(i).addClass("active");
+        //控制按钮在1000毫秒内不能重复点击
+        $("#next").unblind("click");
+        setTimeout(function(){
+            $("#next").click(next);
+        },1000);
+        i--;
+        if(i<0){
+            i=$(".but li").length-1;
+        }
+        $(".but li").removeClass("active");
+        $(".but li").eq(i).addClass("active");
+        $("#prev").unbind("click");
+        setTimeout(function(){
+            $("#prev").click(prev);
+        },1000)
+    }
+    //向右滑动
+    function prev(){
+        $(".banner li").last().prependTo($(".banner"));
+        $(".banner").css("margin-left",-w);
+        $(".banner").animate({
+            "margin-left":0
+        },1000);
+        i--;
+        if(i<0){
+            i=$(".but li").length-1;
+        }
+        $(".but li").removeClass("active");
+        $(".but li").eq(i).addClass("active");
+        //控制按钮在1000毫秒内不能重复点击
+        $("#prev").unbind("click");
+        setTimeout(function(){
+            $("#prev").click(prev);
+        },1000);
+    }
+    $(".but li").click(function(){
+        var j=$(this).index()-i;
+        if(j>0){
+            i+=j;
+            $(".banner").animate({
+                "margin-left":-w*j
+            },1000,function(){
+                for(var n=0;n<j;n++){
+                    $(".banner li").first().appendTo($(".banner"));
+                    $(".banner").css("margin-left",0);
+                }
+            })
+        }
+        if(j<0){
+            for(var n=0;n>j;n--){
+                $(".banner li").last().prependTo(".banner");
+                i--;
+            }
+            $(".banner").css("margin-left",w*j);
+            $(".banner").animate({
+                "margin-left":0
+            },1000);
+        }
+        $(".but li").removeClass("active");
+        $(".but li").eq(i).addClass("active");
+    })
+</script>
+</html>
